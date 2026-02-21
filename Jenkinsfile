@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        // This must match the name you gave in Global Tool Configuration
+        nodejs 'node20' 
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -16,10 +21,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
-                // Note: Use 'sh' for Linux/Mac/Docker, 'bat' for Windows
-                sh 'npm start &' 
+                echo 'Deploying...'
+                // This will run the app in the background
+                sh 'nohup npm start & '
             }
         }
     }
-}    
+}
